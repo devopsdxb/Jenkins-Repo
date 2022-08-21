@@ -1,0 +1,28 @@
+---
+- name: Install docker in ec2-user
+  hosts: dockerservers
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Install the latest version of Docker Engine and containerd
+      yum:
+        name: docker
+        state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      notify: Start and enable docker
+
+    - name: Add the current user to the docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+  handlers:
+    - name: Start and enable docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+

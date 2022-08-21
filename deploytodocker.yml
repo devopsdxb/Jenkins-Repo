@@ -1,0 +1,38 @@
+---
+- hosts: dockerservers
+  become: yes
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+
+   - name: Start docker daemon
+     service:
+       name: docker
+       state: started
+       enabled: yes
+   - name: stop container
+     docker_container:
+       name: mithun_tech
+       state: stopped
+   - name: remove docker images
+     shell: |
+       docker rmi -f $(docker images -q);
+   - name: Pull docker image
+     docker_image:
+       name: saurabhefm/mysimpleapp
+       tag: latest
+       source: pull
+     register: z
+   - name: launch container
+     when: z.failed == false
+     docker_container:
+       name: mithun_tech
+       image: saurabhefm/mysimpleapp
+       state: started
+       ports:
+         - "8085:8080"
+      
+        
+
+ 
