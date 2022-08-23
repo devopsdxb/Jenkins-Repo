@@ -1,0 +1,5 @@
+[dockerservers]
+172.31.19.51 ansible_user=ec2-user
+172.31.22.146 ansible_user=ec2-user
+172.31.24.206 ansible_user=ec2-user
+
