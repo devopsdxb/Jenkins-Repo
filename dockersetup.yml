@@ -6,8 +6,7 @@
 
   tasks:
     - name: Check uptime and date
-      shell: |
-      date
+      command: "date"
     - name: Install the latest version of Docker Engine and containerd
       yum:
         name: docker
