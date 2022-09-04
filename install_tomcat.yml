@@ -11,6 +11,10 @@
     - debug:
         var: a.stdout_lines
     - name: Install the latest version of tomcat
+      yum: 
+        name: default-jdk
+        status: present
+    - name: Install the latest version of tomcat
       shell: |
          yum install tomcat -y
       notify: Start and enable tomcat
