@@ -1,0 +1,36 @@
+---
+- name: Install tomcat in ec2-user
+  hosts: dockerservers
+  gather_facts: false
+  become: yes
+
+  tasks:
+    - name: Check uptime and date
+      command: "date"
+      register: a
+    - debug:
+        var: a.stdout_lines
+    - name: Install the java 11
+      yum:
+        name: java-11-openjdk
+        state: present        
+    - name: Install the latest version of tomcat
+      yum:
+        name: tomcat
+        state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      notify: Start and enable tomcat
+
+    - name: Add the current user to the docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+  handlers:
+    - name: Start and enable tomcat
+      service:
+        name: docker
+        state: started
+        enabled: yes
