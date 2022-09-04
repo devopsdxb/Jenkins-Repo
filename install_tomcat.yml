@@ -10,10 +10,9 @@
       register: a
     - debug:
         var: a.stdout_lines
-    - name: Install the latest version of tomcat
-      yum: 
-        name: default-jdk
-        status: present
+    - name: Install the  of java
+      shell: |
+         yum install java -y
     - name: Install the latest version of tomcat
       shell: |
          yum install tomcat -y
