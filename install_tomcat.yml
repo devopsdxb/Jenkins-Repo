@@ -11,9 +11,7 @@
     - debug:
         var: a.stdout_lines
     - name: Install the java 11
-      yum:
-        name: java-11-openjdk-demo.x86_64
-        state: present        
+      command: "yum isntall java-11-openjdk.x86_64 -y"   
     - name: Install the latest version of tomcat
       yum:
         name: tomcat
