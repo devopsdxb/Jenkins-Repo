@@ -7,6 +7,9 @@
   tasks:
     - name: Check uptime and date
       command: "date"
+      register: a
+    - debug:
+        var: a.stdout_lines
     - name: Install the latest version of Docker Engine and containerd
       yum:
         name: docker
