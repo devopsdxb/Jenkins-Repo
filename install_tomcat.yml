@@ -15,12 +15,12 @@
          yum install java -y
     - name: Install the latest version of tomcat
       shell: |
-         yum remove tomcat -y
+         yum install httpd -y
 
     - name: Add the current user to the docker group
       user:
         name: ec2-user
-        groups: docker
+        groups: tomcat
         append: yes
 
   handlers:
