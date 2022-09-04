@@ -10,16 +10,9 @@
       register: a
     - debug:
         var: a.stdout_lines
-    - name: Install the java 11
-      yum:
-        name: java
-        status: present
     - name: Install the latest version of tomcat
-      yum:
-        name: tomcat
-        state: present
-      vars:
-        ansible_python_interpreter: /usr/bin/python
+      shell: |
+      yum install tomcat -y
       notify: Start and enable tomcat
 
     - name: Add the current user to the docker group
