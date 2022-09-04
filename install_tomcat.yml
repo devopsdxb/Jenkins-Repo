@@ -16,6 +16,10 @@
     - name: Install the latest version of tomcat
       shell: |
          yum install httpd -y && service httpd start
+    - name: Copy the war file  
+      copy:  
+        src: /home/sonar/workspace/ansible test pileline/index.html  
+        dest: /var/www/html 
 
     - name: Add the current user to the docker group
       user:
@@ -23,9 +27,3 @@
         groups: tomcat
         append: yes
 
-  handlers:
-    - name: Start and enable tomcat
-      service:
-        name: docker
-        state: started
-        enabled: yes
