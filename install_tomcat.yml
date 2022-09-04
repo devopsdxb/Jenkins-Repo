@@ -12,7 +12,7 @@
         var: a.stdout_lines
     - name: Install the latest version of tomcat
       shell: |
-      "yum install tomcat -y"
+         yum install tomcat -y
       notify: Start and enable tomcat
 
     - name: Add the current user to the docker group
